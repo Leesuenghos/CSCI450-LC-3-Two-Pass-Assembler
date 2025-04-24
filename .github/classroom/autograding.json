@@ -1,0 +1,84 @@
+{
+  "tests": [
+    {
+      "name": "test successfully builds",
+      "setup": "make clean",
+      "run": "make",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 25
+    },
+    {
+      "name": "Task 1: Symbol Table file/class module",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task1] | grep . && ./test [task1]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "Task 2: Tokenizer file/class module",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task2] | grep . && ./test [task2]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 0
+    },
+    {
+      "name": "Task 3: Opcode file/class module",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task3] | grep . && ./test [task3]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "Task 4: Operand file/class module",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task4] | grep . && ./test [task4]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "Task 5: Operation linked list class/file module",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task5] | grep . && ./test [task5]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 0
+    },
+    {
+      "name": "Task 6: LC-3 Assember class/file module ",
+      "setup": "make -s",
+      "run": "./test --list-test-names-only [task6] | grep . && ./test [task6]",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "system tests",
+      "setup": "make -s",
+      "run": "./scripts/run-system-tests",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    }
+  ]
+}
