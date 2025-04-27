@@ -159,6 +159,17 @@ st_entry* st_insert(symbol_table* st, const char* symbol, uint16_t address)
 st_entry* st_lookup(symbol_table* st, const char* symbol)
 {
   // task 1 part 2 implementation goes here
+  unsigned key = st_hash(st, symbol);
+  st_entry* entry = st->entries[key];
+
+  while (entry != NULL)
+  {
+    if (match(entry->symbol, symbol))
+    {
+      return entry;
+    }
+    entry = entry->next;
+  }
   return NULL;
 }
 
@@ -201,5 +212,10 @@ void st_display(symbol_table* st)
 unsigned st_hash(symbol_table* st, const char* symbol)
 {
   // task 1 part 1 implementation goes here
-  return 0;
+  unsigned key = 0;
+  for (int i = 0; symbol[i] != '\0'; i++)
+  {
+    key = key * 31 + (unsigned char)symbol[i];
+  }
+  return key % st->table_size;
 }

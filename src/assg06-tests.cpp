@@ -22,7 +22,7 @@ using namespace std;
 #include "symbol-table.h"
 #include "tokenizer.h"
 
-#undef task1
+#define task1
 #undef task2
 #undef task3
 #undef task4
