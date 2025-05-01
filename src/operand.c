@@ -316,5 +316,18 @@ bool is_hex_literal(const char* token)
 bool is_decimal_literal(const char* token)
 {
   // task 4 part 5 goes here
-  return token[0] == '#' && isdigit(token[1]);
+  if (token[0] == '#')
+  {
+    if (token[1] == '-' && isdigit(token[2]))
+      return true;
+    if (isdigit(token[1]))
+      return true;
+  }
+  else
+  {
+    // allow plain decimal like "5" for pseudo-opcodes
+    if (isdigit(token[0]))
+      return true;
+  }
+  return false;
 }
