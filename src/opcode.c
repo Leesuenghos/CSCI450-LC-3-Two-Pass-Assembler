@@ -318,9 +318,9 @@ const char* opc_str(opcode* opc)
 }
 
 /// All LC-3 opcode keywords that we recognize in the assembler
-#define NUM_KEYWORDS 29
-char* keywords[] = {"BRn", "BRz", "BRp", "BRnz", "BRnp", "BRzp", "BRnzp", "ADD", "LD", "ST", "JSR", "JSRR", "AND", "LDR", "STR", "RTI",
-  "NOT", "LDI", "STI", "JMP", "RET", "RESERVED", "LEA", "TRAP", ".ORIG", ".END", ".BLKW", ".FILL", ".STRINGZ"};
+#define NUM_KEYWORDS (sizeof(keywords) / sizeof(keywords[0]))
+static const char* keywords[] = {"BRn", "BRz", "BRp", "BRnz", "BRnp", "BRzp", "BRnzp", "ADD", "LD", "ST", "JSR", "JSRR", "AND", "LDR",
+  "STR", "RTI", "NOT", "LDI", "STI", "JMP", "RET", "RESERVED", "LEA", "TRAP", ".ORIG", ".END", ".BLKW", ".FILL", ".STRINGZ"};
 
 /** @brief is keyword
  *
@@ -333,5 +333,12 @@ char* keywords[] = {"BRn", "BRz", "BRp", "BRnz", "BRnp", "BRzp", "BRnzp", "ADD",
 bool is_keyword(const char* token)
 {
   // task 3 implementation goes here
+  for (int i = 0; i < NUM_KEYWORDS; i++)
+  {
+    if (strcmp(token, keywords[i]) == 0)
+    {
+      return true;
+    }
+  }
   return false;
 }

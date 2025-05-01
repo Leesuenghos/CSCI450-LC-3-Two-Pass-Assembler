@@ -23,8 +23,8 @@ using namespace std;
 #include "tokenizer.h"
 
 #define task1
-#undef task2
-#undef task3
+#define task2
+#define task3
 #undef task4
 #undef task5
 #undef task6
