@@ -253,7 +253,7 @@ const char* opr_str(operand* opr)
 bool is_register(const char* token)
 {
   // task 4 part 1 goes here
-  return false;
+  return token[0] == 'R';
 }
 
 /** @brief test if token is a string literal
@@ -264,7 +264,7 @@ bool is_register(const char* token)
 bool is_string(const char* token)
 {
   // task 4 part 2 goes here
-  return false;
+  return token[0] == '"';
 }
 
 /** @brief is hex digit
@@ -280,7 +280,7 @@ bool is_string(const char* token)
 bool is_hex_digit(char c)
 {
   // task 4 part 3 goes here
-  return false;
+  return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
 }
 
 /** @brief test if token is a hext literal
@@ -296,6 +296,14 @@ bool is_hex_digit(char c)
 bool is_hex_literal(const char* token)
 {
   // task 4 part 4 goes here
+  if ((token[0] == 'x' || token[0] == 'X') && is_hex_digit(token[1]))
+  {
+    return true;
+  }
+  if (token[0] == '0' && (token[1] == 'x' || token[1] == 'X') && is_hex_digit(token[2]))
+  {
+    return true;
+  }
   return false;
 }
 
@@ -308,5 +316,5 @@ bool is_hex_literal(const char* token)
 bool is_decimal_literal(const char* token)
 {
   // task 4 part 5 goes here
-  return false;
+  return token[0] == '#' && isdigit(token[1]);
 }
