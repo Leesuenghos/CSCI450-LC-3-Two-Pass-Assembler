@@ -172,10 +172,9 @@ operation_list* pass_one(tokenizer* tk, symbol_table* st)
     }
     else if (opc->opc == STRINGZ)
     {
-      entry->size = entry->opr[0]->value;
       // after we get size, set value to be first character for ease of
       // assembly
-      entry->opr[0]->value = (uint16_t)entry->opr[0]->svalue[0];
+      entry->size = strlen(entry->opr[0]->svalue) + 1;
     }
     // all others the size should be 1 memory word for the operation or pseudo op
     else

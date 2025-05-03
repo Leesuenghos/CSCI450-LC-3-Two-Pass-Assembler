@@ -148,17 +148,16 @@ void extract_string(operand* opr)
   // allocate memory to hold new copy of only the string without the
   // quotes, so size-2, but we need to add in a terminator \0, so
   // size-1
-  int size = strlen(opr->token);
-  opr->svalue = (char*)malloc(size - 1);
-  strncpy(opr->svalue, &(opr->token[1]), size - 2);
-
+  int len = strlen(opr->token);
+  opr->svalue = (char*)malloc(len - 1);
+  strncpy(opr->svalue, &(opr->token[1]), len - 2);
   // the strncpy doesn't add in a string terminator, so add it
-  opr->svalue[size - 2] = '\0';
+  opr->svalue[len - 2] = '\0';
 
   // usually the terminator \0 is not counted in the string size, but
   // we need to take it into account when determining the size of this
   // operand, so our size is size - 2 (removed the ""), + 1 (for \0 at end)
-  opr->value = size - 1;
+  opr->value = strlen(opr->svalue) + 1;
 }
 
 /** @brief extract hex literal
@@ -174,13 +173,13 @@ void extract_hex_literal(operand* opr)
 {
   opr->opr = NUMERIC;
 
-  // first character is x or first two are 0x
-  int idx = 1;
-  if ((opr->token[idx] == 'X') || (opr->token[idx] == 'x'))
-  {
-    idx = 2;
-  }
-  opr->value = (uint16_t)strtol(&(opr->token[idx]), NULL, 16);
+  const char* num_str = opr->token;
+  if (num_str[0] == '0' && (num_str[1] == 'x' || num_str[1] == 'X'))
+    num_str += 2;
+  else if (num_str[0] == 'x' || num_str[0] == 'X')
+    num_str += 1;
+
+  opr->value = (uint16_t)strtol(num_str, NULL, 16);
 }
 
 /** @brief extract decimal literal
@@ -196,13 +195,11 @@ void extract_decimal_literal(operand* opr)
 {
   opr->opr = NUMERIC;
 
-  // first character might be # to indicate a decimal literal
-  int idx = 0;
-  if (opr->token[idx] == '#')
-  {
-    idx = 1;
-  }
-  opr->value = (uint16_t)atoi(&(opr->token[idx]));
+  // skip '#' if present
+  const char* num_str = (opr->token[0] == '#') ? opr->token + 1 : opr->token;
+
+  int value = (int)strtol(num_str, NULL, 10);
+  opr->value = (uint16_t)value;
 }
 
 /** @brief extract symbol

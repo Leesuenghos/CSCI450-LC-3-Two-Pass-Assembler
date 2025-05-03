@@ -196,7 +196,6 @@ char* strtokquote(char* input, char* delimit)
   // to strtokquote
   static char* token = NULL;
   char* start = NULL;
-  bool in_block = false;
 
   // initial call, set token to of beginning string
   if (input != NULL)
@@ -222,27 +221,23 @@ char* strtokquote(char* input, char* delimit)
 
   // now search for next delimiter, or end of string if
   // we get into a string block
-  while (true)
+  if (*token == '"')
   {
-    if (*token == '"')
-    {
-      in_block = true;
-    }
-    if (in_block)
+    start = token; // Start from opening quote
+    token++;       // move past opening quote
+    while (*token != '"' && *token != '\0')
     {
       token++;
-      if (*token == '"')
-      {
-        token++;
-        in_block = false;
-      }
-      continue;
     }
-    if ((strchr(delimit, *token) != NULL) || (*token == '\0'))
+    if (*token == '"')
     {
-      break;
+      token++; // move past closing quote
     }
-    else
+  }
+  else
+  {
+    start = token;
+    while (!strchr(delimit, *token) && *token != '\0')
     {
       token++;
     }
